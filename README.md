@@ -68,17 +68,19 @@ script 파일을 통해 horovodrun 명령어를 이용하여 학습 job을 실�
 echo 115.145.178.217:2
 echo 115.145.178.218:3
 ```
-  
+
 다음으로 del_files.py의 역할은 이전 학습에서 사용된 log 파일을 삭제하는 것입니다.
 마지막으로, run.sh 파일에 포함된 내용은 앞서 설명한 del_files.py 및 rm 명령어를 통해 이전 학습에서 사용된 log 파일을 삭제하고, 메인 학습 코드를 실행합니다.
 다양한 학습 코드에 해당 framework를 적용하려면 해당 부분을 수정해주면 됩니다.
 해당 레포지토리에는 resnet50 모델을 예시로 사용하였습니다.
 해당 framework의 최대 장점은 5줄의 코드 수정 만으로 기존 코드에 적용할 수 있다는 것입니다.
+5줄의 코드 내부에 들어갈 인자는 간단한 소스 코드 수정을 통해 사용자의 필요성에 맞게 조정할 수 있습니다.
 학습 코드에 추가해야하는 5줄의 코드는 다음과 같습니다.
 ```sh
 from GPU_monitoring_daemon_pkg import gpustat_daemon as dmn
 dmn.start_daemon(hvd.local_rank())
 ```
+
 ```sh
 from Log_monitoring_pkg import log_control as lc
 lc.local_log_save(...)
