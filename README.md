@@ -101,7 +101,9 @@ templates 내부에는 웹 대시보드 동작에 필요한 html 파일이 있�
 다음으로는 서버 동작의 메인이라고 할 수 있는 dashboard_flask.py 파일입니다.
 웹 대시보드에서 사용자가 요청하는 스케일링 정보를 처리하고, 현재 실행 중인 job / job 변경 로그 정보를 실시간으로 보여주는 역할 또한 수행하며 GPU status 및 로그 정보를 시각적으로 보여주는 그래프를 나타내는 역할을 합니다.
 
-
+## horovodrun & Web Dashboard
+아래 사진은 Elastic Horovod와 Web dashboard가 동작하는 것입니다.
+![스크린샷, 2022-12-19 03-16-46](https://user-images.githubusercontent.com/30406090/208312830-7a2bac14-fd54-4e89-b171-e555cb15b904.png)
 
 
 
