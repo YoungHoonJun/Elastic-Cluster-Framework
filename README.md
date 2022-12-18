@@ -86,6 +86,33 @@ from Log_monitoring_pkg import log_control as lc
 lc.local_log_save(...)
 lc.web_post(...)
 ```
++)해당 코드에서 import를 위해 sys.path에 패키지의 경로를 추가해야합니다.  
+
+3. Log_monitoring_pkg  
+해당 패키지는 학습 로그를 관리하는 역할을 합니다.
+log_control.py 파일 내부에 학습 도중 로그를 출력하는 내용에 대한 코드가 작성되어 있습니다.
+이를 학습 코드 callback 함수 내부에 추가하면 학습 도중에 로그를 출력하고 수집할 수 있습니다.
+로컬에 로그를 저장하는 동작, REST-API 서버로 로그를 전달하는 역할 두 가지를 수행합니다.
+
+4. REST_API_Server_pkg  
+해당 패키지는 REST-API 서버 동작을 위해 필요한 코드를 포함하고 있습니다.
+우선, static/js 디렉토리 내부에 위치한 javascript 파일은 GPU status와 로그를 웹 대시보드에서 그래프를 통해 보여주는 역할을 합니다.  
+templates 내부에는 웹 대시보드 동작에 필요한 html 파일이 있습니다.  
+다음으로는 서버 동작의 메인이라고 할 수 있는 dashboard_flask.py 파일입니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
