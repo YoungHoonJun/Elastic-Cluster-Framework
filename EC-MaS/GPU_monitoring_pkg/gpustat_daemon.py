@@ -19,7 +19,7 @@ def start_daemon(log_str, hvd_local_rank):
 
 def gpustat_control_daemon(log_str, hvd_local_rank):
     global gpustat_time
-    gpustat_open_string = "SR-Elastic-Cluster-Framework/EC-MaS/Job-control-pkg/" + local_ip + "_gpustat.json"
+    gpustat_open_string = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/" + local_ip + "_gpustat.json"
     gpustat_file_string = "gpustat --json > " + gpustat_open_string
 
     while True:
