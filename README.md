@@ -48,7 +48,7 @@ horovodrun -p <SSH port number> --network-interface <nic> -np <num_proc> --min-n
 
 앞서 framework의 동작 방법에 대해 설명했는데, 해당 파트에서는 소스 코드에 대해 자세히 설명하겠습니다.
 
-1. GPU-monitoring-pkg
+1. GPU-monitoring-pkg  
 해당 패키지는 GPU status를 확인하기 위해 생성되는 데몬을 생성하고 관리하는 역할을 합니다.
 패키지 내부의 gpustat_daemon.py를 통해 데몬을 생성합니다.
 해당 코드에서 gpustat 명령어를 통해 GPU status에 대한 정보를 얻는데. 해당 부분을 수정함으로써 원하는 경로로 설정할 수 있습니다.
