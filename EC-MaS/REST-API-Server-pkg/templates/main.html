@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>DistributedTraining Cluster Scaling UI</h1>
+        <form action = "http://115.145.178.218:8080/" method = "POST">
+            <p><strong>Scale IN (node_address:GPU_count:Job_index)</strong></p>
+            <p><input type="text" value="" name="-"/>&nbsp;<input type="submit" value="Scale In"/></p>
+        </form>
+        <form action = "http://115.145.178.218:8080/" method = "POST">
+            <p><strong>Scale OUT (node_address:GPU_count:Job_index)</strong></p>
+            <p><input type="text" value="" name="+"/>&nbsp;<input type="submit" value="Scale Out"/></p>
+            <br>
+        </form>
+        <h2>Current Jobs</h2>
+        <pre id='gpu_list' style='font-size: 25px'></pre>
+        <h2>Job Scaling Log</h2>
+        <pre id='gpu_change_log' style='font-size: 20px'></pre>
+        <br>
+        <h3>Node -> testbed1(115.145.178.217)</h3>
+        <form action= "http://115.145.178.218:8080/log_tb1" method = "POST">
+            <p><input type = "submit" value = "tb1 Train Log" /></p>
+        </form>
+        <form action= "http://115.145.178.218:8080/gpustat_tb1" method = "POST">
+            <p><input type = "submit" value = "tb1 GPU Status" /></p>
+        </form>
+        <h3>Node -> testbed2(115.145.178.218)</h3>
+        <form action= "http://115.145.178.218:8080/log_tb2" method = "POST">
+            <p><input type = "submit" value = "tb2 Train Log" /></p>
+        </form>
+        <form action= "http://115.145.178.218:8080/gpustat_tb2" method = "POST">
+            <p><input type = "submit" value = "tb2 GPU Status" /></p>
+        </form>
+        <br>
+        <footer>
+            <p>&copy; JunYoungHoon 2022</p>
+            <a href="https://github.com/YoungHoonJun/SR-Elastic-Cluster-Framework">Github Link</a>
+        </footer>
+        <script>
+            setInterval(function(){$.ajax({
+                url: '/update',
+                type: 'POST',
+                success: function(response) {
+                    console.log(response);
+                    $('#gpu_list').html(response['current_gpu_list']);
+                    $('#gpu_change_log').html(response['gpu_log']);
+                },
+                error: function(error) {
+                    console.log(error)
+                }
+            })}, 1000);
+        </script>
+    </body>
+</html>
+
