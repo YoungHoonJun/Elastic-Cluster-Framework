@@ -26,7 +26,7 @@ import time
 import re
 import numpy as np
 
-from Log_monitoring_pkg import log_control as lc # import log monitoring pkg
+from Log_monitoring import log_control as lc # import log monitoring pkg
 
 if common.is_minimal_setup():
   from . import dummy_hvd as hvd

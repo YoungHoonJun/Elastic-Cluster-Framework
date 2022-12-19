@@ -18,7 +18,7 @@ import nvutils
 from resnet_model import resnet50
 import horovod.tensorflow.keras as hvd
 
-from GPU_monitoring_daemon_pkg import gpustat_daemon as dmn #import GPU daemon pkg
+from GPU_monitoring_daemon import gpustat_daemon as dmn #import GPU daemon pkg
 
 nvutils.init()
 
