@@ -17,13 +17,12 @@
 import nvutils
 from resnet_model import resnet50
 import horovod.tensorflow.keras as hvd
-#import daemonpkg.gpustat_control_daemon as dmn
 
-from GPU_monitoring_daemon_pkg import gpustat_daemon as dmn
+from GPU_monitoring_daemon_pkg import gpustat_daemon as dmn #import GPU daemon pkg
 
 nvutils.init()
 
-dmn.start_daemon("Start", hvd.local_rank())
+dmn.start_daemon("Start", hvd.local_rank()) #GPU daemon start
 
 default_args = {
     'image_width' : 224,
@@ -31,7 +30,6 @@ default_args = {
     'distort_color' : False,
     'momentum' : 0.9,
     'loss_scale' : 128.0,
-    # The following params can be changed by cmdline options.
     'image_format' : 'channels_last',
     'data_dir' : None,
     'data_idx_dir' : None,
