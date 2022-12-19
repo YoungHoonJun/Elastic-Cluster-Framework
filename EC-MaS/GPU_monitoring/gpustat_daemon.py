@@ -7,19 +7,22 @@ import requests
 import socket
 import json
 
+# get ip-address of node
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 local_ip = str(s.getsockname()[0])
 gpustat_time = 1
 
+# GPU daemon start function
 def start_daemon(log_str, hvd_local_rank):
     daemon_thread = threading.Thread(target = gpustat_control_daemon, args = (log_str, hvd_local_rank))
     daemon_thread.daemon = True
     daemon_thread.start()
 
+
 def gpustat_control_daemon(log_str, hvd_local_rank):
     global gpustat_time
-    gpustat_open_string = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/" + local_ip + "_gpustat.json"
+    gpustat_open_string = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control/" + local_ip + "_gpustat.json"
     gpustat_file_string = "gpustat --json > " + gpustat_open_string
 
     while True:

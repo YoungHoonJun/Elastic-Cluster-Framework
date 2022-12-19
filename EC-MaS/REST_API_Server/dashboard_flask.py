@@ -34,7 +34,7 @@ def scaling_Horovod():
         host_num = split_list[1]
         job_index = split_list[2]
 
-        open_job_str = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/hosts_scripts/discover_hosts_" + str(job_index) + ".sh"
+        open_job_str = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control/hosts_scripts/discover_hosts_" + str(job_index) + ".sh"
 
         f_read = open(open_job_str, "r")
         running_gpu = f_read.read()
@@ -167,7 +167,7 @@ def tb1_gpustat_data():
     if request.method == 'POST':
         f_gpustat = request.files.get('file', None)
         if f_gpustat:
-            gpu_location_tb1 = '/SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/gpustat_control/' + f_gpustat.filename
+            gpu_location_tb1 = '/SR-Elastic-Cluster-Framework/EC-MaS/Job_control/gpustat_control/' + f_gpustat.filename
             f_gpustat.save(gpu_location_tb1)
             is_gpu[0] = 1
 
@@ -217,7 +217,7 @@ def tb2_gpustat_data():
     if request.method == 'POST':
         f_gpustat = request.files.get('file', None)
         if f_gpustat:
-            gpu_location_tb2 = '/SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/gpustat_control/' + f_gpustat.filename
+            gpu_location_tb2 = '/SR-Elastic-Cluster-Framework/EC-MaS/Job_control/gpustat_control/' + f_gpustat.filename
             f_gpustat.save(gpu_location_tb2)
             is_gpu[1] = 1
 
@@ -264,14 +264,14 @@ def scaling_log_update():
     global log_list_string
 
     while True:
-        open_job_str = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/hosts_scripts/discover_hosts_" + str(job_count) + ".sh"
+        open_job_str = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control/hosts_scripts/discover_hosts_" + str(job_count) + ".sh"
         if (os.path.isfile(open_job_str)):
             job_count = job_count + 1
         else:
             break
 
     for i in range(job_count):
-        open_job_str = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/hosts_scripts/discover_hosts_" + str(i) + ".sh"
+        open_job_str = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control/hosts_scripts/discover_hosts_" + str(i) + ".sh"
         f_read = open(open_job_str, "r")
         running_gpu = f_read.read()
         running_gpu_list = running_gpu.split("\n")

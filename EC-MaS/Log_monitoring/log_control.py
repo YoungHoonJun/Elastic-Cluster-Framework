@@ -10,7 +10,7 @@ node_ip = str(s.getsockname()[0])
 log_data = OrderedDict()
 
 def local_log_save(global_steps, examples_per_second, elapsed_time, timestamp, local_rank):
-    open_string = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/" + node_ip + "_log" + str(local_rank) + ".txt"
+    open_string = "/SR-Elastic-Cluster-Framework/EC-MaS/Job_control/" + node_ip + "_log" + str(local_rank) + ".txt"
     f_write = open(open_string, "a")
 
     if local_rank == 0:
