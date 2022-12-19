@@ -48,18 +48,18 @@ horovodrun -p <SSH port number> --network-interface <nic> -np <num_proc> --min-n
 
 앞서 framework의 동작 방법에 대해 설명했는데, 해당 파트에서는 소스 코드에 대해 자세히 설명하겠습니다.
 
-1. GPU_monitoring_pkg  
+1. GPU_monitoring   
 해당 패키지는 GPU status를 확인하기 위해 생성되는 데몬을 생성하고 관리하는 역할을 합니다.
 패키지 내부의 gpustat_daemon.py를 통해 데몬을 생성합니다.
 해당 코드에서 gpustat 명령어를 통해 GPU status에 대한 정보를 얻는데. 해당 부분을 수정함으로써 원하는 경로로 설정할 수 있습니다.
 ```sh
 ...
-gpustat_open_string = "SR-Elastic-Cluster-Framework/EC-MaS/Job_control_pkg/" + local_ip + "_gpustat.json"
+gpustat_open_string = "SR-Elastic-Cluster-Framework/EC-MaS/Job_control/" + local_ip + "_gpustat.json"
 gpustat_file_string = "gpustat --json > " + gpustat_open_string
 ...
 ```
 
-2. Job_control_pkg  
+2. Job_control  
 해당 패키지는 job을 관리하는 역할을 합니다.
 패키지 내부 hosts_scripts 디렉토리 내부에 위치한 script 파일은 각각 하나의 job을 나타냅니다.
 script 파일을 통해 horovodrun 명령어를 이용하여 학습 job을 실행합니다.
@@ -77,24 +77,24 @@ echo 115.145.178.218:3
 5줄의 코드 내부에 들어갈 인자는 간단한 소스 코드 수정을 통해 사용자의 필요성에 맞게 조정할 수 있습니다.
 학습 코드에 추가해야하는 5줄의 코드는 다음과 같습니다.
 ```sh
-from GPU_monitoring_daemon_pkg import gpustat_daemon as dmn
+from GPU_monitoring_daemon import gpustat_daemon as dmn
 dmn.start_daemon(hvd.local_rank())
 ```
 
 ```sh
-from Log_monitoring_pkg import log_control as lc
+from Log_monitoring import log_control as lc
 lc.local_log_save(...)
 lc.web_post(...)
 ```
 +) 해당 코드에서 import를 위해 sys.path에 패키지의 경로를 추가해야합니다.  
 
-3. Log_monitoring_pkg  
+3. Log_monitoring  
 해당 패키지는 학습 로그를 관리하는 역할을 합니다.
 log_control.py 파일 내부에 학습 도중 로그를 출력하는 내용에 대한 코드가 작성되어 있습니다.
 이를 학습 코드 callback 함수 내부에 추가하면 학습 도중에 로그를 출력하고 수집할 수 있습니다.
 로컬에 로그를 저장하는 동작, REST-API 서버로 로그를 전달하는 역할 두 가지를 수행합니다.
 
-4. REST_API_Server_pkg  
+4. REST_API_Server  
 해당 패키지는 REST-API 서버 동작을 위해 필요한 코드를 포함하고 있습니다.
 우선, static/js 디렉토리 내부에 위치한 javascript 파일은 GPU status와 로그를 웹 대시보드에서 그래프를 통해 보여주는 역할을 합니다.  
 templates 내부에는 웹 대시보드 동작에 필요한 html 파일이 있습니다.  
