@@ -17,7 +17,6 @@
 from builtins import range
 from nvutils import image_processing
 from nvutils import common
-#from nvutils.helperpkg import train_helper as th
 
 import tensorflow as tf
 import tensorflow.keras as keras
@@ -27,7 +26,7 @@ import time
 import re
 import numpy as np
 
-from Log_monitoring_pkg import log_control as lc
+from Log_monitoring_pkg import log_control as lc # import log monitoring pkg
 
 if common.is_minimal_setup():
   from . import dummy_hvd as hvd
@@ -59,9 +58,9 @@ class _ProfileKerasFitCallback(keras.callbacks.Callback):
       if hvd.local_rank() == 0:
         print("global_step: %d images_per_sec: %.1f" % (self.global_steps, examples_per_second))
 
-      lc.local_log_save(str(self.global_steps), str(examples_per_second), str(elapsed_time), str(timestamp), hvd.local_rank())
+      lc.local_log_save(str(self.global_steps), str(examples_per_second), str(elapsed_time), str(timestamp), hvd.local_rank()) # save log in local file
 
-      lc.web_post(int(self.global_steps), float(elapsed_time), float(examples_per_second), hvd.local_rank())
+      lc.web_post(int(self.global_steps), float(elapsed_time), float(examples_per_second), hvd.local_rank()) # send log to REST-API server
 
       self.start_time = timestamp
 
