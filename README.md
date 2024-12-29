@@ -1,15 +1,15 @@
 # SR-Elastic-Cluster-Framework
 
-Elastic Horovod를 이용하여 분산 학습을 진행할 때 GPU를 dynamic하게 scaling in/out을 하기 위해 현재 동작 중인 Elastic Horovod의 상태를 파악해야 됩니다.
+Elastic Horovod를 이용하여 분산 학습을 진행할 때 동적 GPU 스케일링 결정을 위해 현재 동작 중인 Elastic Horovod의 상태를 파악해야 됩니다.
 
-Elastic-Cluster-Framework는 이를 동적으로 파악해서 보여주는 interface와 그 정보를 가지고 Elastic Horovod에서 여러 개의 node에서 학습하고 있는 worker의 수를 버튼 하나로 scaling in/out 할 수 있는 API를 제공합니다.
+Elastic-Cluster-Framework는 이를 동적으로 파악해서 보여주는 인터페이스와, 해당 인터페이스를 통해 얻은 정보를 기반으로 Elastic Horovod에서 다수의 GPU 노드에서 학습하고 있는 worker의 수를 버튼 하나로 scaling in/out 할 수 있는 API를 제공합니다.
   
 ## Setting
 
 해당 framework를 이용하기 위해 Elastic Horovod를 동작할 수 있는 환경 세팅과 여러 Python 라이브러리의 설치가 필요합니다.
 
 1. [Elastic Horovod](https://horovod.readthedocs.io/en/stable/elastic_include.html)  
-Framework를 개발하며 Elastic Horovod가 설치된 docker image를 이용하여 docker container 환경에서 작업하였습니다. 기존에 Elastic Horovod를 이용하여 연구를 진행하셨던 CSL 김경록님께서 정리해놓으신 notion 링크를 첨부하겠습니다. 해당 링크의 내용에는 Elastic Horovod를 설치 및 세팅하는 방법에 대해 자세히 설명되어 있습니다.
+Framework를 개발하며 Elastic Horovod가 설치된 docker image를 이용하여 docker container 환경에서 작업하였습니다. 첨부한 링크를 통해 Elastic Horovod를 설치 및 세팅하는 방법에 대해 확인할 수 있습니다. ([출처] 성균관대학교 컴퓨터시스템연구실 김경록 석사)
 >+ [notion link](https://discreet-file-a73.notion.site/Elastic-Horovod-6ae5f2c3dac04b62b0f4605cf65b0d36)
 
 2. Python 라이브러리 설치  
@@ -21,7 +21,7 @@ REST-API를 이용하기 위해 몇 가지 파이썬 라이브러리가 필요�
 ## How to Run
 
 Elastic Horovod가 학습하는 동안 REST-API Server와 지속적으로 상호작용을 해야 합니다.
-따라서, 해당 framework를 사용하기 위해서는 우선 REST-API Server가 실행되어 web page를 띄워준 뒤, horovodrun 명령어를 통해 Elastic Horovod가 학습을 시작한 뒤 REST-API를 통해 서로 상호작용 합니다.
+따라서, 해당 framework를 사용하기 위해서는 우선 REST-API Server가 실행되어 웹 대시보드를 띄워주고 horovodrun 명령어를 통해 Elastic Horovod가 학습을 시작한 뒤, REST-API를 통해 서로 상호작용 합니다.
 이와 같은 실행 과정을 순서대로 설명하면 다음과 같습니다.
 
 우선, REST-API Server를 실행하는 방법에 대해 설명하겠습니다. uwsgi.ini 파일은 /EC-MaS/REST-API-Server-pkg에 위치하고, nginx의 환경 설정을 위한 nginx.conf 파일은 해당 레포지토리 내부에 있습니다.
@@ -102,7 +102,7 @@ templates 내부에는 웹 대시보드 동작에 필요한 html 파일이 있�
 웹 대시보드에서 사용자가 요청하는 스케일링 정보를 처리하고, 현재 실행 중인 job / job 변경 로그 정보를 실시간으로 보여주는 역할 또한 수행하며 GPU status 및 로그 정보를 시각적으로 보여주는 그래프를 나타내는 역할을 합니다.
 
 ## horovodrun & Web Dashboard
-아래 사진은 Elastic Horovod와 Web dashboard가 동작하는 것입니다.
+아래 사진은 Elastic Horovod와 Web dashboard가 동작하는 예시입니다.
 ![스크린샷, 2022-12-19 03-16-46](https://user-images.githubusercontent.com/30406090/208312830-7a2bac14-fd54-4e89-b171-e555cb15b904.png)  
 ![스크린샷, 2022-12-19 13-22-35](https://user-images.githubusercontent.com/30406090/208347088-73c31def-4b35-4980-b9bb-a99fe69d68aa.png)
 
