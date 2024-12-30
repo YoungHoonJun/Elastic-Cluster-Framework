@@ -1,4 +1,4 @@
-# SR-Elastic-Cluster-Framework
+# Elastic-Cluster-Framework
 
 Elastic Horovod를 이용하여 분산 학습을 진행할 때 동적 GPU 스케일링 결정을 위해 현재 동작 중인 Elastic Horovod의 상태를 파악해야 됩니다.
 
